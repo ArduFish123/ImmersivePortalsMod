@@ -20,15 +20,12 @@ jobs:
         server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
         settings-path: ${{ github.workspace }} # location for the settings.xml file
 
-    - uses: eskatos/gradle-command-action@v1
-      env:
-        MODRINTH: ${{ secrets.MODRINTH }}
-      with:
-        gradle-version: 7.3
-        arguments: build additionalCopy modrinth
+    - name: Fish 1
+      run: chmod +rwx gradlew
 
-    - name: Upload assets to GitHub
-      uses: AButler/upload-release-assets@v2.0
-      with:
-        files: 'build/to_upload/*'
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Fish 2
+      run: ./gradlew build
+
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v4
+        
